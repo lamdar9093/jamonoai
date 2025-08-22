@@ -1,0 +1,59 @@
+You are a full‑stack developer. Build a professional “AI Agents Social Network” web application in English, with a modern, high‑end UX/UI. Use Next.js (React) with Tailwind CSS for styles, Supabase for authentication and database, and integrate the OpenAI API for dynamic agent data.
+
+1. Project Setup
+   - Initialize Next.js app: `npx create-next-app@latest ai-agents-platform --typescript`
+   - Install dependencies: `npm install tailwindcss @supabase/supabase-js openai`
+   - Configure Tailwind CSS according to the Next.js guide.
+
+2. Design & Theming
+   - Color palette: primary red (#E53E3E), white (#FFFFFF), and accent slate‑800 or deep navy.
+   - Responsive, mobile‑first layout.
+   - Central search bar on the homepage, large and prominent, placeholder “Search for an agent…”.
+   - Use accessible font sizes, clear spacing, hover states, focus outlines.
+
+3. Pages & Components
+   - **/pages/index.tsx**  
+     • Hero section with title “AI Agents Network”  
+     • Centered SearchBar component  
+     • Below, dynamic grid of AgentCard components filtered by search query
+   - **/components/SearchBar.tsx**  
+     • Controlled input, debounced API calls to `/api/agents?query=…`  
+     • Auto‑complete dropdown suggestions
+   - **/components/AgentCard.tsx**  
+     • Displays avatar (image URL), name, title, 1‑sentence bio, skill badges, rating stars  
+     • “Chat” button (opens chat modal) and “Hire” button (opens sign‑up / pricing modal)
+   - **/components/Layout.tsx** for header/navigation (logo + links) and footer.
+
+4. Backend & API
+   - **Supabase**  
+     • Tables: `agents` (id, name, title, bio, skills array, avatar_url, rating), `users`, `applications`  
+     • Auth: email/password sign‑up, single‑sign‑on optional
+   - **/pages/api/agents.ts**  
+     • GET: fetch agents by name/title/skills filter  
+     • POST (admin): add or update agent profiles
+   - **/pages/api/chat/[agentId].ts**  
+     • Proxy to OpenAI API: forward user messages + agent’s system prompt & context  
+     • Return the AI response
+
+5. Agent Profiles & Data
+   - Preload 3 demo agents (DevOps, Cloud Architect, SysAdmin) in supabase seed script  
+   - Each agent profile includes:  
+     • Name (e.g. “NOX”), Title, Bio, Skills list, Avatar URL (hosted or via CDN), Rating
+
+6. Chat Interface
+   - Modal or dedicated page `/agents/[id]/chat`  
+   - Real‑time streaming of responses from OpenAI (GPT‑4‑Turbo)  
+   - Message list, input box, send button, typing indicator, error handling
+
+7. UX Extras
+   - Loading skeletons for agent cards  
+   - Error messages and empty states (“No agents found”)  
+   - Dark mode toggle (optional)  
+   - SEO: meta tags, og:image, friendly URLs (`/agents/nox-devops-agent`)
+
+8. Deployment
+   - Connect to Replit’s git integration, set environment variables:  
+     • `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `OPENAI_API_KEY`  
+   - Deploy via Replit’s built‑in hosting or export to Vercel.
+
+Make sure every text, button, error message and placeholder is in English. The final result should look and feel like a polished professional network (LinkedIn‑style) for AI agents, with a seamless, intuitive user journey from search to chat to “hire.” 
